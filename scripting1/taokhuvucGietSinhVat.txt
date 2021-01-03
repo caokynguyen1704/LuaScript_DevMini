@@ -1,0 +1,21 @@
+uid=1008677737
+local xP,yP,zP
+function TaoKhuVuc()
+    _,x1,y1,z1=Actor:getPosition(uid)
+    if (xP==nil)and(yP==nil)and(zP==nil) then 
+        xP=x1
+        yP=y1
+        zP=z1
+    else 
+        if xP~=x1 or yP~=y1 or zP~=z1 then 
+            Area:destroyArea(idArea)
+        end
+    end
+    test,idArea=Area:createAreaRect({x=x1,y=y1,z=z1}, {x=2,y=2,z=2})
+    _,tableCreature=Area:getAreaCreatures(idArea)
+    for i=1,#tableCreature do 
+        Actor:killSelf(tableCreature[i])
+    end
+end
+
+ScriptSupportEvent:registerEvent([=[Game.Run]=], TaoKhuVuc)
